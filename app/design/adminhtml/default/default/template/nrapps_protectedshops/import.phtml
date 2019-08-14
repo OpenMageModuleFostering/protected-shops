@@ -1,0 +1,69 @@
+<?php
+/**
+ * @category   NRApps
+ * @package    NRApps_ProtectedShops
+ * @copyright  Copyright (c) 2014 integer_net GmbH (http://www.integer-net.de/)
+ * @license    http://opensource.org/licenses/osl-3.0.php Open Software Licence 3.0 (OSL-3.0)
+ * @author     nr-apps.com (http://www.nr-apps.com/) powered by integer_net GmbH
+ * @author     Viktor Franz <vf@integer-net.de>
+ */
+
+/**
+ * @see NRApps_ProtectedShops_Block_Adminhtml_System_Config_Import
+ * @see NRApps_ProtectedShops_Adminhtml_nrappsprotectedshops_ConfigController
+ * @var $this NRApps_ProtectedShops_Block_Adminhtml_System_Config_Import
+ */
+?>
+
+<script type="text/javascript">
+    //<![CDATA[
+
+    NRAppsProtectedShopsImport = Class.create();
+    NRAppsProtectedShopsImport.prototype = {
+
+        /**
+         *
+         */
+        initialize: function () {
+            this.lock = false;
+
+            Event.observe('config_edit_form', 'change', function () {
+                this.lock = true;
+            }.bind(this));
+        },
+
+        /**
+         *
+         */
+        exec: function () {
+            if (this.lock) {
+                this._showLockErrorMessage();
+            } else {
+                window.location = '<?php echo $this->getAjaxUrl() ?>';
+            }
+        },
+
+        /**
+         *
+         * @private
+         */
+        _showLockErrorMessage: function () {
+
+            var message = '<div id="messages"><ul class="messages"><li class="notice-msg"><ul><li><span><?php echo $this->__('Please save settings before import documents.') ?></span></li></ul></li></ul></div>';
+
+            if ($('messages')) {
+                $('messages').replace(message);
+            } else {
+                $('content').down().insert({top: message});
+            }
+        }
+    };
+
+    var nrAppsProtectedShopsImport = new NRAppsProtectedShopsImport();
+
+    //]]>
+</script>
+
+<button type="button" onclick="nrAppsProtectedShopsImport.exec();" id="<?php echo $this->getHtmlId() ?>" class="scalable" style="width: 200px;" >
+    <span><?php echo $this->escapeHtml($this->getButtonLabel()) ?></span>
+</button>

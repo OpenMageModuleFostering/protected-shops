@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   NRApps
+ * @package    NRApps_ProtectedShops
+ * @copyright  Copyright (c) 2014 integer_net GmbH (http://www.integer-net.de/)
+ * @license    http://opensource.org/licenses/osl-3.0.php Open Software Licence 3.0 (OSL-3.0)
+ * @author     nr-apps.com (http://www.nr-apps.com/) powered by integer_net GmbH
+ * @author     Viktor Franz <vf@integer-net.de>
+ */
+-->
+
+<config>
+    <modules>
+        <NRApps_ProtectedShops>
+            <version>1.0.0</version>
+        </NRApps_ProtectedShops>
+    </modules>
+    <global>
+        <helpers>
+            <nrapps_protectedshops>
+                <class>NRApps_ProtectedShops_Helper</class>
+            </nrapps_protectedshops>
+        </helpers>
+        <blocks>
+            <nrapps_protectedshops>
+                <class>NRApps_ProtectedShops_Block</class>
+            </nrapps_protectedshops>
+        </blocks>
+        <models>
+            <nrapps_protectedshops>
+                <class>NRApps_ProtectedShops_Model</class>
+            </nrapps_protectedshops>
+        </models>
+        <template>
+            <email>
+                <nrapps_protectedshops_auto_update_error_email_template translate="label" module="nrapps_protectedshops">
+                    <label>Protected Shops Auto Update Error</label>
+                    <file>nrapps_protectedshops_auto_update_error_email.html</file>
+                    <type>text</type>
+                </nrapps_protectedshops_auto_update_error_email_template>
+            </email>
+        </template>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <NRApps_ProtectedShops before="Mage_Adminhtml">NRApps_ProtectedShops_Adminhtml</NRApps_ProtectedShops>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <translate>
+            <modules>
+                <NRApps_ProtectedShops>
+                    <files>
+                        <default>NRApps_ProtectedShops.csv</default>
+                    </files>
+                </NRApps_ProtectedShops>
+            </modules>
+        </translate>
+    </adminhtml>
+    <crontab>
+        <jobs>
+            <nrapps_protectedshops>
+                <schedule>
+                    <cron_expr>43 */1 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>nrapps_protectedshops/cron::scheduling</model>
+                </run>
+            </nrapps_protectedshops>
+        </jobs>
+    </crontab>
+    <default>
+        <nrapps_protectedshops>
+            <setting>
+                <api_uri><![CDATA[https://www.protectedshops.de/api/]]></api_uri>
+                <shop_id/>
+                <map/>
+                <hash_validate>0</hash_validate>
+            </setting>
+            <auto_update>
+                <is_active>0</is_active>
+                <interval>12</interval>
+                <error_email_threshold>3</error_email_threshold>
+                <error_email_recipient_protectedshops />
+                <error_email_recipient />
+                <error_email_sender_identity>general</error_email_sender_identity>
+                <error_email_template>nrapps_protectedshops_auto_update_error_email_template</error_email_template>
+            </auto_update>
+        </nrapps_protectedshops>
+    </default>
+</config>
