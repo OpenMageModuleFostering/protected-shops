@@ -1,3 +1,5 @@
+
+
 ## Original Package Description
 
 The extension from Protected Shops helps to transfer the legal texts i.e. terms and conditions, notice of revocation, imprint and privacy policy automatically in the own online shop. If the law changes, these texts update automatically and the extension synchronizes the new one to the right position. At that point, online traders are protected against legal proceedings.
